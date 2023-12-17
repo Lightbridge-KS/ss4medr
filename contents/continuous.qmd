@@ -13,7 +13,7 @@ library(here)
 library(pwr)
 ```
 
-![R Packages and functions for sample size calculation [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
+![R Packages and functions for sample size calculation, from  [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
 
 ## Comparing 2 groups
 
@@ -74,7 +74,10 @@ pwr.t.test(d = 0.5,
            type = "one.sample", alternative = "two.sided")
 ```
 
-**N = 34** (If dropout rate of 20%, a total of 43 samples are required) 
+- **N = 34** 
+- If dropout rate of 20%, a **total of 43 samples** are required
+
+For non-parametric test: adding 15% gives a total of 65.
 
 
 #### Ex 2: New DM Drug
@@ -115,3 +118,90 @@ pwr.t.test(
 
 
 
+### Two-sample t-test
+
+Cohen's d for Welch:
+
+$$
+d = \frac{ \mu_1 - \mu_2 }{SD_{pool}} 
+$$
+
+Where
+
+$$
+SD_{pool} = \sqrt{ (SD_1^2 + SD_2^2)/2 }
+$$
+
+```{r}
+pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.8, 
+           type = "two.sample",
+           alternative = "two.sided")
+```
+
+Assuming a p-value of 0.05 and a power of 80% in a two-tailed test, when the effect size d = 0.5
+
+- **N = 64 x 2** 
+
+- If dropout rate of 20%, **Total = 160**
+
+
+**Mann-Whitney U test:**
+
+- For non-parametric test add an additional 15% for each group would give a total of 240 people.
+
+
+### Paired t-test
+
+```{r}
+pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.8, 
+           type = "paired",
+           alternative = "two.sided")
+```
+
+Assuming a p-value of 0.05 and a power of 80% in a two-tailed test, the minimum number of pairs required to demonstrate statistical significance is 34 when the effect size d = 0.5. 
+
+Considering the dropout rate of 20%, a total of **43 pairs** are required.
+
+**Paired Wilcoxon test**
+
+- For non-parametric test, add an additional 15%, the total 65 pairs are required
+
+## Comparing ≥3 groups
+
+
+### ANOVA (Parametric)
+
+Studies that compare averages of three or more groups. 
+
+- `k`: number of comparison groups
+- `f`: means the effect size (Cohen's $f$)
+
+$$
+f = \sqrt{ \frac{ \sum_{i=1}^{k} p_i \times (\mu_i - \mu)^2 }{\sigma^2} }
+$$
+
+
+**Effect Size (f-values)**
+
+- Small = 0.1
+- Medium = 0.25
+- Large = 0.4
+
+
+```{r}
+cohen.ES(test = "anov", size = "medium")
+```
+
+
+```{r}
+pwr.anova.test (k = 3 , f = 0.25, sig.level = 0.05, power = 0.8)
+```
+
+Assume that the p-value is 0.05, the power is 80%, and the two-tailed test is performed. When the total comparison group was three groups and the effect size value was 0.25, the number of subjects calculated was **53** in each group. 
+
+Considering a dropout rate of 20%, a **total of 198 samples** are required, which is calculated as 66 per group.
+
+### Kruskal-Wallis test (Non-parametric)
+
+
+For non-parametric test, add an additional 15% of each group
