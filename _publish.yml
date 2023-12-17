@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 9dc1be71-d828-40bc-9d53-dd5821146a1c
+      url: 'https://ss4medr.netlify.app'

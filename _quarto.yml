@@ -6,6 +6,8 @@ book:
   subtitle: "A Quick Guide Cookbook"
   author: "Kittipos Sirivongrungson"
   date: "12/17/2023"
+  site-url: https://ss4medr.netlify.app
+  repo-url: ""
   chapters:
     - index.qmd
     - part: "Group comparison"
