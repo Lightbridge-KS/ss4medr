@@ -1,4 +1,12 @@
-# Fundamental Concepts
+---
+title: "Fundamental Concepts"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+here::i_am("contents/funda.qmd")
+library(here)
+```
 
 
 The basic statistical concepts that must be considered for estimating the sample size are as follows.
@@ -98,6 +106,16 @@ Where
 
 - Power is directly proportional to the sample size.
 
+## Effect size
+
+
+```{r message=FALSE}
+library(pwr)
+```
+
+```{r}
+cohen.ES(test = "t", size = "medium")
+```
 
 ## Outcome
 
