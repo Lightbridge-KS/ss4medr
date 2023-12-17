@@ -2,7 +2,7 @@
 
 ::: callout-tip
 ### Goal
-A cookbook & code collection for sample size calculation for medical research using R
+A cookbook & code collection for sample size calculation in medical research using R
 :::
 
 ### Resources
