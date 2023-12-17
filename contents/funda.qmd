@@ -109,6 +109,14 @@ Where
 ## Effect size
 
 
+- Effect size can be defined as ‘a standardized measure of the magnitude of the mean difference or relationship between study groups’
+
+- An index that divides the effect size by its dispersion (standard deviation, etc.) is not affected by the measurement unit and can be used regardless of the unit, and is called an ‘effect size index’ or ‘standardized effect size
+
+- Whether an effect size should be interpreted as small, medium, or large may depend on the analysis method. 
+
+
+
 ```{r message=FALSE}
 library(pwr)
 ```
@@ -137,4 +145,9 @@ If $n$ is the number of samples calculated according to the formula and $dr$ is 
 $$
 N = \frac{ n }{(1 – dr)}
 $$
+
+## Non-parametric test
+
+A rule of thumb for nonparametric tests on continuous variables, calculate the sample size required for parametric tests and **add 15%**. 
+
 

@@ -11,8 +11,107 @@ library(here)
 
 ```{r message=FALSE}
 library(pwr)
-library(WebPower)
 ```
 
 ![R Packages and functions for sample size calculation [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
+
+## Comparing 2 groups
+
+### Overview
+
+`pwr.t.test()` function
+
+- One-sample t test (`type` = “one.sample”)
+- Two-sample t test (`type` = “two.sample”)
+- Paired t test (`type` = “paired”)
+
+**Cohen’s d** is used as the effect size
+
+- Very small (d = 0.01)
+- Small (d = 0.2)
+- Medium (d = 0.5)
+- Large (d = 0.8)
+- Very large (d = 1.2)
+- Huge (d = 2)
+
+In the example below, I will be used these setting for default values:
+
+- Medium effect size
+- A two-tailed test
+- A significance of **0.05** and a power of **80%**
+
+
+### One-sample t-test 
+
+Cohen's d:
+
+$$
+d = \frac{\mu_1 - \mu_0}{SD}
+$$
+
+Where:
+
+- $\mu_0$ = mean under $H_0$
+- $\mu_1$ = mean under $H_1$
+- $SD$ = SD under $H_0$
+
+#### Ex 1: New dietary supplement
+
+Does the introduction of a new dietary supplement reduce systolic blood pressure in patients with stage 1 hypertension more effectively than the currently recommended lifestyle modifications alone?
+
+The primary outcome is the mean change in systolic blood pressure (mmHg) after a 12-week supplementation period.
+
+Let's assume a **medium** effect size ($d = 0.5$)
+
+```{r}
+cohen.ES(test = "t", size = "medium")
+```
+
+
+```{r}
+pwr.t.test(d = 0.5, 
+           sig.level = 0.05, power = 0.8, 
+           type = "one.sample", alternative = "two.sided")
+```
+
+**N = 34** (If dropout rate of 20%, a total of 43 samples are required) 
+
+
+#### Ex 2: New DM Drug
+
+Let’s propose a study of a new drug to reduce hemoglobin A1c in type 2 diabetes over a 1 year study period. You estimate that your recruited participants will have a mean baseline A1c of 9.0, which will be unchanged by your placebo, but reduced (on average) to 7.0 by the study drug.
+
+let’s say 5.0 and 17.0 for min and max of Hgb A1c
+
+```{r}
+sd_approx <- (17 - 5)/4
+d1 <- (9 - 7) / sd_approx # delta / sd
+
+pwr.t.test(
+  n = NULL,
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided",
+  power = 0.80,
+  d = d1
+)
+```
+
+**N = 37** in each group (Assuming a 20% dropout rate in each arm, would require 37*5/4 subjects per arm)
+
+
+If study on 50 participants, what would the power be?
+
+```{r}
+pwr.t.test(
+  n = 25, # note that n is per arm
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided",
+  power = NULL, # ?
+  d = 0.66
+)
+```
+
+
 
