@@ -1,0 +1,21 @@
+# Preface {.unnumbered}
+
+::: callout-tip
+### Goal
+A cookbook & code collection for sample size calculation for biomedical research using R
+:::
+
+### Resources
+
+Many of the resources and code are from these sources:
+
+- **Sample size calculation in clinical trial using R** [@sample_size_calc_clinical_R]
+
+- **Reproducible Medical Research with R** [@rmrwr]
+
+
+### R Package Used
+
+- **pwr** [@pkg_pwr]
+
+- **WebPower** [@pkg_WebPower]

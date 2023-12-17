@@ -1,0 +1,14 @@
+{
+  "hash": "d6c21d5cedff102bbf24ee4efbcb59ee",
+  "result": {
+    "markdown": "---\ntitle: \"Continuous Outcome\"\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(pwr)\nlibrary(WebPower)\n```\n:::\n\n\n![R Packages and functions for sample size calculation [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

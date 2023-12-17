@@ -1,0 +1,122 @@
+# Fundamental Concepts
+
+
+The basic statistical concepts that must be considered for estimating the sample size are as follows.
+
+## Null and alternative hypotheses testing
+
+- **Null hypothesis ($H_0$):** contains the opposite of what the researcher claims in the study and is set to be rejected. (i.e., "there is no difference ...")
+
+- **Alternative hypothesis ($H_1$):** a proposes statement for a potential outcome (i.e., "there is a difference ...")
+
+
+| Test for       | Null hypothesis (H₀)         | Alternative hypothesis (H₁)      |
+|----------------|------------------------------|----------------------------------|
+| Equality       | $\mu_T - \mu_S = 0$          | $\mu_T - \mu_S \neq 0$         |
+| Equivalence    | $| \mu_T - \mu_S | ≥ \delta$ | $| \mu_T - \mu_S | < \delta$   |
+| Superiority    | $\mu_T - \mu_S ≤ \delta$     | $\mu_T - \mu_S > \delta$        |
+| Non-inferiority| $\mu_T - \mu_S ≤ -\delta_{NI}$ | $\mu_T - \mu_S > -\delta_{NI}$ |
+
+Where
+
+- $\mu_T$ = mean of new treatment
+- $\mu_S$ = mean of standard treatment
+- $\delta$ = the minimum clinically important difference
+- $\delta_{NI}$ = the non-inferiority margin
+
+### Equality
+
+- **Null Hypothesis (H₀):** there is no difference between the means of the two groups being compared, essentially that the treatment effect is zero.
+
+- **Alternative Hypothesis (H₁):** there is a difference between the means of the two groups, without specifying the direction of the difference.
+
+**Example:** A clinical trial is conducted to determine if a new drug is effective in lowering blood pressure compared to a placebo. 
+
+- The null hypothesis would be that the mean reduction in blood pressure ($\mu_T$ - $\mu_S$) is zero, indicating the new drug has no effect. 
+- The alternative hypothesis would be that the mean reduction is not equal to zero, indicating a potential effect from the drug.
+
+
+### Equivalence
+
+- **Null Hypothesis (H₀):** the difference between the two means is at least as large as a specified equivalence margin ($\delta$), indicating that the treatments are not equivalent.
+
+- **Alternative Hypothesis (H₁):** the absolute difference between the two means is smaller than the specified equivalence margin, indicating that the treatments are equivalent.
+
+**Example:** Suppose a generic drug is being compared to a branded drug, and the goal is to show that the generic is equivalent to the branded version in terms of efficacy. 
+
+- The null hypothesis would claim a difference in efficacy that is at least as large as the equivalence margin
+- The alternative would claim that the difference in efficacy is less than this margin, supporting equivalence.
+
+### Superiority
+
+- **Null Hypothesis (H₀):** the new treatment is not superior to the standard treatment by at least the minimum clinically important difference ($\delta$).
+
+- **Alternative Hypothesis (H₁):** the new treatment is superior to the standard treatment by more than the minimum clinically important difference.
+
+**Example:** A study is assessing whether a new chemotherapy regimen (T) is more effective than the standard regimen (S) in extending the survival time of patients. 
+
+- The null hypothesis would assert that the new regimen does not increase survival time by a clinically important margin compared to the standard
+- The alternative hypothesis would assert that the new regimen does increase survival time by more than this margin.
+
+### Non-inferiority
+
+- **Null Hypothesis (H₀):** The new treatment is inferior to the standard treatment by more than a specified non-inferiority margin ($\delta_{NI}$).
+
+- **Alternative Hypothesis (H₁):** The new treatment is **not** inferior to the standard treatment by more than the non-inferiority margin; it may be equal or better.
+
+**Example:** A pharmaceutical company develops a new drug that is easier to administer than the current standard but needs to prove that the efficacy is not unacceptably worse. 
+
+- The null hypothesis would propose that the new drug is worse than the standard by an unacceptable margin, while 
+- The alternative hypothesis would support that the new drug's efficacy is not worse than this margin, making it a viable alternative.
+
+## One-sided vs two-sided tests
+
+- **One-sided test:** the research hypothesis is looking for a specific direction of effect. It tests the possibility of the relationship in one direction only. (e.g., a superiority or non-inferiority trial)
+
+- **Two-sided test** the research hypothesis is looking for deviations in either direction from the null hypothesis. It tests the possibility of a relationship in both directions, without specifying which direction is expected. (e.g., equality and equivalence trials)
+
+## Error
+
+| True status | H₀ (accept H₀)      | H₁ (reject H₀)     |
+|-------------|---------------------|--------------------|
+| H₀          | Correct decision    | Type I error ($\alpha$)   |
+| H₁          | Type II error ($\beta$)   | Correct decision   |
+
+
+### Type I error ($\alpha$)
+
+- **A type I error ($\alpha$)** is the probability of rejecting the null hypothesis when it is actually true. This essentially means saying that the alternative hypothesis is true when it is not true. Therefore, it is recommended to keep the type I error as small as possible. The type I error rate is known as the *significance level* and is usually set to **0.05 (5%)** or less
+
+- Type I error is inversely proportional to sample size
+
+
+### Type II error ($\beta$)
+
+- **A type II error ($\beta$)** is the probability of not rejecting the null hypothesis when it is false. 
+
+- **Power ($1 – β$)** is the probability that the test will correctly reject the null hypothesis when the alternative hypothesis is true, conventionally set to **80% or 90%**.
+
+- Power is directly proportional to the sample size.
+
+
+## Outcome
+
+
+Variables to see clinically significant differences may vary, but the most important factor among them should be selected. This is called the primary outcome, and the other measurements are referred to as secondary outcomes. 
+
+The number of samples is calculated using the primary outcome, using information from prior studies or pilot studies. 
+
+The parameters used to calculate the *minimal meaningful detectable difference (MD)* and *standard deviation (SD)* depend on the type of outcome variable:
+
+- **Continuous outcome variable:** mean/sd is used as a parameter
+
+- **Categorical outcome variable:** a proportion is used as a parameter
+
+## Dropout rate
+
+If $n$ is the number of samples calculated according to the formula and $dr$ is the dropout rate, the adjusted sample size $N$ is given by
+
+$$
+N = \frac{ n }{(1 – dr)}
+$$
+

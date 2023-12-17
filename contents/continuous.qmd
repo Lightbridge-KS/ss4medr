@@ -1,0 +1,18 @@
+---
+title: "Continuous Outcome"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+here::i_am("contents/continuous.qmd")
+library(here)
+```
+
+
+```{r message=FALSE}
+library(pwr)
+library(WebPower)
+```
+
+![R Packages and functions for sample size calculation [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
+

@@ -1,0 +1,34 @@
+project:
+  type: book
+
+book:
+  title: "Sample Size for Medical Research with R"
+  subtitle: "A Quick Guide Cookbook"
+  author: "Kittipos Sirivongrungson"
+  date: "12/17/2023"
+  chapters:
+    - index.qmd
+    - part: "Group comparison"
+      chapters: 
+        - "contents/funda.qmd"
+        - "contents/continuous.qmd"
+    - references.qmd
+
+bibliography: assets/ref.bib
+
+format:
+  html:
+    toc: true
+    toc-depth: 5
+    theme: 
+      light: 
+        - flatly
+        #- custom.scss
+      dark: 
+        - darkly
+    
+execute:
+  freeze: auto
+
+
+
