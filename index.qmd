@@ -1,9 +1,29 @@
 # Preface {.unnumbered}
 
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+here::i_am("index.qmd")
+library(here)
+library(gt)
+library(dplyr)
+```
+
+
 ::: callout-tip
 ### Goal
-A cookbook & code collection for sample size calculation in medical research using R
+An **in-development** cookbook & code collection for sample size calculation in medical research using R
 :::
+
+
+### Who is book for 
+
+This book this for someone who has 
+
+-   Some basic `R` knowledge.
+
+-   Some experience conducting statistical test (e.g., t-test). 
+
+But you haven't done any sample size calculation before (at least in R) and you want a quick tutorial to do that in `R` with some examples.
 
 ### Resources
 
@@ -13,6 +33,100 @@ Many of the resources and code are from these sources:
 
 - **Reproducible Medical Research with R** [@rmrwr]
 
+- [**{pwr} vignette**](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html)
+
+### Functions
+
+Here is the summary of functions that help you calculate sample size or power based on statistical test
+
+```{r include=FALSE, eval=FALSE}
+cat.prop1
+cat.prop2
+cat.fisher
+cat.chi
+cat.mcnemar
+```
+
+
+
+
+```{r ss_param_tbl, include=FALSE}
+# Parametric Test
+ss_param_tbl <- tibble(
+  id = c("num_p", "num.cat2_p", "num.cat2_p.paired", "num.cat3_p"),
+  name = c(
+    "One-sample t test", "Two-sample t test",
+    "Paired t test", "One-way ANOVA"
+  ),
+  group_no = c("1", "2", "2", "≥3"),
+  pkg = rep("pwr", 4),
+  fn = c("`pwr.t.test(type = 'one.sample')`",
+         "`pwr.t.test(type = 'two.sample')`",
+         "`pwr.t.test(type = 'paired')`",
+         "`pwr.anova.test()`")
+)
+```
+
+
+```{r ss_non.param_tbl, include=FALSE}
+# Non-parametric Test
+ss_non.param_tbl <- tibble(
+  id = c("num_np", "num.cat2_np", "num.cat2_np.paired", "num.cat3_np"),
+  name = c(
+    "One-sample Wilcoxon test", "Mann-Whitney U test",
+    "Paired Wilcoxon test", "Kruskal-Wallis test"
+  ),
+  group_no = c("1", "2", "2", "≥3"),
+  pkg = rep("pwr", 4),
+  fn = NA # TODO
+)
+```
+
+```{r ss_tbl, include=FALSE}
+# Combine
+ss_tbl <- bind_rows(
+  list(
+    "Continuous ~ Categorical / parametric" = ss_param_tbl,
+    "Continuous ~ Categorical / nonparametric" = ss_non.param_tbl
+  ),
+  .id = "type"
+) |>
+  mutate(
+    pkg = case_when(
+      pkg == "pwr" ~ "[pwr](https://cran.r-project.org/package=pwr)")
+    )
+ss_tbl 
+```
+
+
+
+```{r echo=FALSE}
+ss_tbl |> 
+  select(-id) |> 
+  gt(groupname_col = "type", rowname_col = "name") |> 
+  fmt_markdown(columns = c(pkg, fn)) |> 
+  cols_label(
+    type = md("**Type**"),
+    name = md("**Name**"),
+    group_no = md("**# Groups**"),
+    pkg = md("**Package**"),
+    fn = md("**Function**")
+    ) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "#faedcd"),
+      cell_text(weight = "bold")
+      ),
+    locations = cells_row_groups()
+  ) |> 
+  cols_width(
+    c(group_no, pkg) ~ px(60)
+  )
+```
+
+**TODO:** make table above from here
+
+![R Packages and functions for sample size calculation, from  [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
 
 ### R Package Used
 
