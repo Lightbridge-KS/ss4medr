@@ -7,7 +7,7 @@ book:
   author: "Kittipos Sirivongrungson"
   date: "12/17/2023"
   site-url: https://ss4medr.netlify.app
-  repo-url: "https://github.com/Lightbridge-KS/med-sample-size-r"
+  repo-url: "https://github.com/Lightbridge-KS/ss4medr"
   chapters:
     - index.qmd
     - "contents/funda.qmd"
