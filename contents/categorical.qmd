@@ -1,0 +1,33 @@
+---
+title: "Categorical Outcome"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+here::i_am("contents/categorical.qmd")
+library(here)
+```
+
+```{r message=FALSE}
+library(pwr)
+library(ggplot2)
+theme_set(theme_minimal())
+```
+
+
+```{r}
+res.p.1 <- pwr.p.test(
+  h = ES.h(p1 = 0.75, p2 = 0.50),
+  sig.level = 0.05,
+  power = 0.80,
+  alternative = "greater"
+)
+
+res.p.1
+```
+
+```{r}
+plot(res.p.1)
+```
+

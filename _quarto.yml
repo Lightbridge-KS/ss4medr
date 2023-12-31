@@ -10,9 +10,10 @@ book:
   repo-url: "https://github.com/Lightbridge-KS/med-sample-size-r"
   chapters:
     - index.qmd
+    - "contents/funda.qmd"
+    - "contents/pwr.qmd"
     - part: "Group comparison"
       chapters: 
-        - "contents/funda.qmd"
         - "contents/continuous.qmd"
     - references.qmd
 

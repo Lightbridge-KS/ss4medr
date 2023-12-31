@@ -13,7 +13,6 @@ library(here)
 library(pwr)
 ```
 
-![R Packages and functions for sample size calculation, from  [@sample_size_calc_clinical_R]](/pic/sample-size-pkg.png)
 
 ## Comparing 2 groups
 
@@ -194,7 +193,7 @@ cohen.ES(test = "anov", size = "medium")
 
 
 ```{r}
-pwr.anova.test (k = 3 , f = 0.25, sig.level = 0.05, power = 0.8)
+pwr.anova.test(k = 3 , f = 0.25, sig.level = 0.05, power = 0.8)
 ```
 
 Assume that the p-value is 0.05, the power is 80%, and the two-tailed test is performed. When the total comparison group was three groups and the effect size value was 0.25, the number of subjects calculated was **53** in each group. 
