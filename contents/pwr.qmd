@@ -1,0 +1,127 @@
+---
+title: "{pwr} basics"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+here::i_am("contents/pwr.qmd")
+library(here)
+```
+
+In this chapter, the aim is to give tutorial on how functions from `pwr` [@pkg_pwr] packages works. This package comes with handful of handy functions to calculate sample sizes and power analysis with some useful plot to visualize sample size and power. The subsequent chapters will shows usage of each functions.
+
+To read the full documentation, you can visit the official [{pwr} vignette](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html), which also gives much of the references here.
+
+## Basic Usage
+
+The main function to calculate sample size or power generally in the form of `pwr.stats_type.test()`.
+
+- `pwr.p.test()`: one-sample proportion test
+- `pwr.2p.test()`: two-sample proportion test
+- `pwr.2p2n.test()`: two-sample proportion test (unequal sample sizes)
+- `pwr.t.test()`: two-sample, one-sample and paired t-tests
+- `pwr.t2n.test()`: two-sample t-tests (unequal sample sizes)
+- `pwr.anova.test()`: one-way balanced ANOVA
+- `pwr.r.test()`: correlation test
+- `pwr.chisq.test()`: chi-squared test (goodness of fit and association)
+- `pwr.f2.test()`: test for the general linear model
+
+The basic arguments of these functions are:
+
+1. **Effect size:** depending on the specific functions used (e.g., `h` is used in one or two-sample proportion test)
+
+2. **`n`**: the sample sizes (usually, for *each* comparison groups)
+
+3. **`sig.level`**: A type I error ($\alpha$), probability of not rejecting the null hypothesis when it is false, usually default to `0.05`.
+
+4. **`power`**: A power ($1 – β$), probability that the test will correctly reject the null hypothesis when the alternative hypothesis is true, usually default to `0.08`.
+
+5. **`alternative`**: “two.sided”, “less”, or “greater”.
+
+From arguments 1 to 4 above, the key idea is to _**leaves**_ whichever one you want to calculate as `NULL` (i.e., just don't fill it). 
+
+
+## Sample size & Power Calculation
+
+```{r message=FALSE}
+library(pwr)
+```
+
+
+For example, given we want to do a one sample t-test, with effect size (`d`) = 0.5, significant level = 0.05, and power = 0.8. 
+
+**To calculate sample size**, just leaves `n` and provide the rest:
+
+
+```{r}
+# Find `n`
+pwr.t.test(d = 0.5, 
+           sig.level = 0.05, power = 0.8, 
+           type = "one.sample", alternative = "two.sided")
+```
+
+The sample size (`n`) = `34`
+
+
+**To calculate power** (given, say `n` = 20), just leave `power` (or set to `NULL`):
+
+
+```{r}
+# Find `n`
+pwr.t.test(d = 0.5, 
+           n = 20,
+           sig.level = 0.05,
+           power = NULL,
+           type = "one.sample", alternative = "two.sided")
+```
+
+Power = `0.5645044`
+
+
+## Plotting
+
+
+`pwr` [@pkg_pwr] provides handy `plot()` methods to visualized how power changes as sample size changes (and vice versa). 
+
+First, assign the result of `pwr.*()` functions to an object. Then, simply called `plot()`. 
+
+```{r}
+res.t.1 <- pwr.t.test(
+  d = 0.5,
+  sig.level = 0.05, power = 0.8,
+  type = "one.sample", alternative = "two.sided"
+)
+
+res.t.1
+```
+
+```{r message=FALSE}
+library(ggplot2)
+theme_set(theme_minimal())
+```
+
+```{r}
+plot(res.t.1)
+```
+
+(It will try using `ggplot`. if not installed, `base` R plot will be used.)
+
+## Internals
+
+The object from `pwr.*()` functions stores information of each arguments you've called and its calculation. 
+
+```{r}
+sloop::otype(res.t.1) # Object Type
+class(res.t.1) # Special class
+```
+
+```{r}
+str(res.t.1)
+```
+
+```{r}
+# To get individual arguments for further calculation
+res.t.1$n
+res.t.1$power
+```
+
