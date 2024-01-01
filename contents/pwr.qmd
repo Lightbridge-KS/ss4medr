@@ -6,6 +6,8 @@ title: "{pwr} basics"
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 here::i_am("contents/pwr.qmd")
 library(here)
+library(dplyr)
+library(gt)
 ```
 
 In this chapter, the aim is to give tutorial on how functions from `pwr` [@pkg_pwr] packages works. This package comes with handful of handy functions to calculate sample sizes and power analysis with some useful plot to visualize sample size and power. The subsequent chapters will shows usage of each functions.
@@ -106,7 +108,46 @@ plot(res.t.1)
 
 (It will try using `ggplot`. if not installed, `base` R plot will be used.)
 
+## Effect Size
+
+`pwr` comes with function to compute *Conventional Effect Sizes* for each type of tests:
+
+```{r pwr_ES_tbl, echo=FALSE}
+pwr_ES_tbl <- tibble(
+  test = c("tests for proportions (p)", "tests for means (t)", "chi-square tests (chisq)", "correlation test (r)", "anova (anov)", "general linear model (f2)"),
+  small = c(0.2, 0.2, 0.1, 0.1, 0.1, 0.02),
+  medium = c(0.5, 0.5, 0.3, 0.3, 0.25, 0.15),
+  large = c(0.8, 0.8, 0.5, 0.5, 0.4, 0.35)
+)
+
+pwr_ES_tbl |> 
+  gt(rowname_col = "test") |> 
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) |> 
+  tab_header(title = "Conventional Effect Sizes")
+```
+
+`cohen.ES()` can be used to obtain such effect size for each test.
+
+```{r}
+cohen.ES(test = "t", size = "medium")
+```
+
+Or as a shortcut, passing string describing the strength directly to `pwr*()`.
+
+
+```{r}
+pwr.t.test(d = "medium", 
+           sig.level = 0.05, power = 0.8, 
+           type = "one.sample", alternative = "two.sided")
+```
+
+
 ## Internals
+
+### Sample size & Power
 
 The object from `pwr.*()` functions stores information of each arguments you've called and its calculation. 
 
@@ -123,5 +164,19 @@ str(res.t.1)
 # To get individual arguments for further calculation
 res.t.1$n
 res.t.1$power
+```
+
+### Effect size
+
+Effect size can also be obtained from `cohen.ES()`
+
+```{r}
+es.t.med <- cohen.ES(test = "t", size = "medium")
+class(es.t.med)
+str(es.t.med)
+```
+
+```{r}
+es.t.med$effect.size
 ```
 
