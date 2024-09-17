@@ -15,6 +15,9 @@ book:
     - part: "Group comparison"
       chapters: 
         - "contents/continuous.qmd"
+    - part: "ML Studies"
+      chapters: 
+        - "contents/ml.qmd"
     - references.qmd
 
 bibliography: assets/ref.bib

@@ -1,0 +1,107 @@
+# Machine-learning Studies
+
+::: {.callout-note appearance="minimal"}
+**Prompt:** How to estimate sample size in ML studies with outcome as categorical variable?
+:::
+
+
+Estimating sample size in machine learning (ML) studies where the outcome variable is categorical (such as binary or multiclass outcomes) can be a bit complex and depends on several factors, including the type of model you are using, the complexity of the data, and the performance metric you are targeting. Below is a general guide on how to approach sample size estimation in such cases:
+
+### Key Considerations for Sample Size Estimation:
+
+1. **Class Distribution (Imbalance)**:
+   
+   - If the categorical outcome is imbalanced (e.g., more instances of one class than another), the number of samples needed will increase. Machine learning models tend to perform poorly on minority classes in imbalanced datasets.
+   - **Binary outcome**: The sample size needs to ensure a sufficient number of observations in each class (i.e., positive and negative outcomes).
+   - **Multiclass outcome**: You need enough data for each category, not just the total number of samples.
+
+2. **Model Complexity**:
+   
+   - Complex models (like deep learning models) typically require more data to learn robust patterns, while simpler models (like logistic regression or decision trees) might need fewer samples.
+   - Overfitting can be a concern with smaller sample sizes for complex models.
+
+3. **Performance Metrics**:
+   
+   - The performance metric you aim to achieve (e.g., accuracy, precision, recall, F1-score) will influence the required sample size. Metrics like AUC-ROC may also demand more samples for reliable estimation.
+
+4. **Train-Test Split**:
+   
+   - Typically, the dataset will be split into training, validation, and test sets. You need to account for this division when determining the overall sample size to ensure that each subset has enough data points.
+
+5. **Variance in Features**:
+   
+   - The variance and dimensionality of your features (predictor variables) will also affect how much data is needed. More complex feature spaces require larger datasets to learn meaningful relationships.
+
+### Common Methods for Estimating Sample Size in ML Studies
+
+1. **Empirical Approach**:
+   
+   - **Rule of thumb for binary classification**: 
+     A common rule is to have at least **10 samples per predictor variable per class**. For instance, if you have 10 predictor variables and a binary outcome, you’d want at least \( 10 \times 10 \times 2 = 200 \) samples (100 per class).
+   - **Rule of thumb for multiclass classification**:
+     A similar approach can be used for multiclass outcomes, but this will scale with the number of classes. A common rule of thumb is to have at least **50 samples per class** or more, depending on the complexity of the model.
+
+2. **Learning Curve Analysis**:
+   
+   - You can estimate sample size by plotting a learning curve, which shows the performance of the model (e.g., accuracy, AUC) as a function of the training data size.
+   - By training the model on progressively larger subsets of the data and observing when performance plateaus, you can get an estimate of how much data is enough.
+   - **Steps**:
+  
+     - Start with a small dataset and incrementally increase the number of samples.
+     - Measure the model’s performance (accuracy, AUC, etc.) at each step.
+     - When adding more data does not significantly improve performance, you have found a sufficient sample size.
+
+3. **Power Analysis**:
+   
+   - You can adapt traditional power analysis methods to machine learning by estimating the effect size (difference in performance metrics, e.g., accuracy or F1-score), the desired power (typically 0.80), and the significance level (often 0.05).
+   - **Steps**:
+  
+     1. Set a hypothesis: For example, achieving a minimum accuracy or precision of X% compared to a baseline.
+     2. Estimate the expected effect size (e.g., how much better your model needs to perform compared to random chance).
+     3. Use power analysis formulas or simulation methods to estimate the minimum number of samples required.
+   
+   - In practice, power analysis for ML is less straightforward but can be useful in highly structured studies (e.g., if you know what effect size to expect).
+
+4. **Simulation-Based Estimation**:
+   
+   - For more precise estimation, you can simulate data with varying sample sizes, train your ML model, and assess its performance across multiple iterations.
+   - This approach can account for the distribution of the categorical outcome and model-specific behavior.
+
+### Sample Size Calculation Example
+
+#### For Binary Classification (e.g., Logistic Regression)
+
+A rough guide using logistic regression or a similar model with a binary outcome can be as follows:
+
+- **Binary outcome (balanced classes)**:
+  For a logistic regression model with 5 features, you would want at least 10-20 samples per feature per class.
+
+$$
+\text{Required sample size} = 10 \times (\text{number of features}) \times (\text{number of classes})
+$$
+
+So for 5 features and 2 classes, the total sample size could be between 100 and 200 samples (assuming balanced class sizes).
+
+#### For Multiclass Classification (e.g., Random Forest)
+
+In multiclass classification with imbalanced classes, you need enough data to ensure robust learning in each class:
+
+- **Multiclass outcome (3 classes, with imbalanced data)**: If you have 3 classes with proportions like 70%, 20%, and 10%, you would need more samples from the minority classes to avoid poor performance in those categories.
+
+A practical approach would involve:
+
+- Ensuring at least 50-100 samples per class for a basic model.
+- Ensuring a higher number (100-500) per class if the model is complex like neural networks.
+
+### Summary Table: Sample Size Estimation Approaches
+
+| Method                    | Description                                                                                                                                       | Pros                                | Cons                             |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|----------------------------------|
+| **Rule of Thumb**          | 10-20 samples per feature per class (binary); 50-100 per class (multiclass).                                                                     | Easy to apply                       | May not be precise for complex data. |
+| **Learning Curve Analysis**| Progressively train with increasing sample sizes to identify when performance plateaus.                                                           | Data-driven and model-specific      | Requires iterative training.     |
+| **Power Analysis**         | Estimate sample size based on effect size, power, and significance level.                                                                        | Scientific approach                 | Complex for ML studies.          |
+| **Simulation-Based**       | Simulate data and train models to empirically estimate the minimum sample size needed for reliable performance.                                    | Flexible and adaptable to ML        | Computationally expensive.       |
+
+### Conclusion:
+
+The exact sample size in machine learning depends on the outcome variable, model complexity, and the desired performance metric. While rules of thumb are helpful, it’s often best to empirically determine the required sample size through learning curves or simulations, particularly for categorical outcome variables in machine learning.

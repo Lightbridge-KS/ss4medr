@@ -31,3 +31,33 @@ res.p.1
 plot(res.p.1)
 ```
 
+## Chi-square test
+
+**Effect size:** Cohen’s W
+
+A market researcher is seeking to determine preference among 4 package designs. He arranges to have a panel of 100 consumers rate their favorite package design. He wants to perform a chi-square goodness of fit test against the null of equal preference (25% for each design) with a significance level of 0.05. What's the power of the test if 3/8 of the population actually prefers one of the designs and the remaining 5/8 are split over the other 3 designs?
+
+```{r}
+null <- rep(0.25, 4)
+alt <- c(3/8, rep((5/8)/3, 3))
+
+ES.w1(null,alt)
+```
+
+### DF
+
+$$
+df = (l−1) × (k−1)
+$$
+
+Two categorical variables have $l$ categories and $k$ categories
+
+### Power
+
+
+```{r}
+pwr.chisq.test(w=ES.w1(null,alt), N=100, df=(4-1), sig.level=0.05)
+```
+
+
+
