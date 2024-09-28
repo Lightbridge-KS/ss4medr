@@ -1,0 +1,90 @@
+# Model Performace Difference
+
+## One-Sample Proportion Test for Machine Learning Research
+
+### Scenario:
+Suppose you are evaluating the performance of a new machine learning classifier that predicts whether patients have a particular disease. Previous research using similar classifiers has shown an AUC (Area Under the Curve) of 0.90. You want to see if your new classifier performs significantly better or worse than this standard. To do so, you will use a one-sample proportion test to compare your classifier's AUC against the hypothesized value of 0.90.
+
+### Setting Up the One-Sample Proportion Test
+In this context:
+
+- **Null Hypothesis ($H_0$)**: The AUC of the new classifier is equal to 0.90.  
+$$
+H_0: p = 0.90
+$$
+
+- **Alternative Hypothesis ($H_a$)**: The AUC of the new classifier is not equal to 0.90 (it could be higher or lower).  
+$$
+H_a: p \neq 0.90
+$$
+
+- **Significance Level ($\alpha$)**: 0.05 (5% chance of Type I error — rejecting$H_0$when it's true).
+  
+- **Power ($1 - \beta$)**: 0.80 (80% chance of correctly rejecting$H_0$when it’s false).
+
+- **Effect Size ($\Delta$)**: You want to detect a difference of at least 0.05, meaning that you want to see if the new AUC is 0.95 or greater, or 0.85 or lower.
+
+- **Observed Proportion ($p$)**: This is the proportion you will calculate based on the model’s performance on a test set (e.g., by using a ROC curve to compute the AUC).
+
+
+### Conducting the One-Sample Proportion Test
+After determining the sample size, you can conduct the experiment and calculate the observed AUC of your classifier on the test set.
+
+For example:
+
+- **Test Set Size**: 150 cases
+- **Observed AUC**: 0.92
+
+You can then use the one-sample proportion test to check if this observed AUC of 0.92 is significantly different from 0.90.
+
+### Performing the Test in R (`pwr`)
+
+Here's how you could perform this test in R using the `pwr.p.test()` function:
+
+```{r}
+library(pwr)
+```
+
+```{r}
+# Define parameters
+p0 <- 0.90          # Null hypothesis proportion
+pa <- 0.95          # Alternative hypothesis proportion
+effect_size <- abs(pa - p0)  # Effect size (absolute difference)
+power <- 0.80       # Desired power
+alpha <- 0.05       # Significance level
+
+# Calculate the sample size using pwr.p.test()
+sample_size_result <- pwr.p.test(h = ES.h(p0, pa), 
+                                 sig.level = alpha, 
+                                 power = power, 
+                                 alternative = "two.sided")
+
+# Print the result
+print(sample_size_result)
+```
+
+
+**Explanation of the parameters** in `pwr.p.test()`:
+
+- `h = ES.h(p0, pa)`: The effect size for proportion tests calculated using Cohen's h formula.
+- `sig.level`: The significance level (alpha).
+- `power`: The desired power of the test.
+- `alternative`: Specifies whether the test is "two.sided", "greater", or "less".
+- `n`: the calculated sample size required **per group** to detect the specified effect size with the given power and significance level.
+
+
+
+
+### Use Case Summary
+
+| Parameter                    | Value                            |
+|------------------------------|----------------------------------|
+| Hypothesized AUC ($p_0$) | 0.90                             |
+| Observed AUC                 | 0.92                             |
+| Significance Level ($\alpha$)    | 0.05                              |
+| Power ($1 - \beta$)      | 0.80                             |
+| Test Set Size                | 150                              |
+| Null Hypothesis ($H_0$)          | AUC = 0.90                         |
+| Alternative Hypothesis ($H_a$)   | AUC ≠ 0.90                         |
+
+If the one-sample proportion test shows a statistically significant result, you can confidently say that the AUC of the new classifier is different from 0.90 and assess whether the new model performs better or worse than the previous standard.

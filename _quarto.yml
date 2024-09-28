@@ -18,6 +18,7 @@ book:
     - part: "ML Studies"
       chapters: 
         - "contents/ml.qmd"
+        - "contents/ml-model-based.qmd"
     - references.qmd
 
 bibliography: assets/ref.bib
