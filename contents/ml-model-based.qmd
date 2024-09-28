@@ -45,6 +45,8 @@ Here's how you could perform this test in R using the `pwr.p.test()` function:
 library(pwr)
 ```
 
+- **Good `p0`:**
+
 ```{r}
 # Define parameters
 p0 <- 0.90          # Null hypothesis proportion
@@ -63,6 +65,25 @@ sample_size_result <- pwr.p.test(h = ES.h(p0, pa),
 print(sample_size_result)
 ```
 
+- **Bad `p0`:**
+  
+```{r}
+# Define parameters
+p0 <- 0.50          # Null hypothesis proportion
+pa <- 0.55          # Alternative hypothesis proportion
+effect_size <- abs(pa - p0)  # Effect size (absolute difference)
+power <- 0.80       # Desired power
+alpha <- 0.05       # Significance level
+
+# Calculate the sample size using pwr.p.test()
+sample_size_result <- pwr.p.test(h = ES.h(p0, pa), 
+                                 sig.level = alpha, 
+                                 power = power, 
+                                 alternative = "two.sided")
+
+# Print the result
+print(sample_size_result)
+```
 
 **Explanation of the parameters** in `pwr.p.test()`:
 
