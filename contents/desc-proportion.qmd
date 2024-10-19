@@ -1,5 +1,5 @@
 ---
-title: "Descriptive"
+title: "Population Proportion"
 ---
 
 
@@ -11,11 +11,7 @@ library(here)
 ```
 
 
-
-
-## Population Proportion
-
-### Concept
+## Concept
 
 Cochran's sample size calculation is a **design tool** for determining the appropriate sample size to estimate a population proportion. As such, it does not directly test a hypothesis like a statistical test (e.g., t-test or ANOVA). However, the underlying **null and alternative hypotheses** behind Cochran’s sample size calculation are implicitly related to ensuring a certain **level of precision** (margin of error) for estimating proportions.
 
@@ -40,7 +36,7 @@ When calculating the sample size for a **finite population** size ($N$), we adju
 - **Alternative Hypothesis ($H_1$)**: The estimated proportion ($\hat{p}$) **is** within the desired margin of error ($e$) even with the adjustment for finite population size ($N$).
 
 
-### Cochran’s Sample Size for Infinite Proportion
+## Cochran’s Sample Size for Infinite Proportion
 
 To estimate the sample size for an **infinite population**, we use **Cochran’s sample size formula for proportions**:
 
@@ -71,7 +67,7 @@ cochran_sample_size <- function(p, e, conf_level = 0.95) {
 ```
 
 
-#### Example
+### Example
 
 Let’s say you want to calculate the required sample size to estimate a population proportion with: 
 
@@ -89,7 +85,7 @@ n0 <- cochran_sample_size(
 n0
 ```
 
-### Finite Population Correction
+## Finite Population Correction
 
 Since our study population is **finite**, we adjust the initial sample size using the **finite population correction formula**:
 
@@ -113,7 +109,7 @@ finite_pop_adj <- function(n0, N) {
 }
 ```
 
-#### Example
+### Example
 
 For a population of 1000, the required sample size is:
 
