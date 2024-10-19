@@ -1,8 +1,68 @@
 # Model Performace Difference
 
-## One-Sample Proportion Test for Machine Learning Research
+## One-Sample Proportion Test in ML Research Context
+
+### Understanding the One-Sample Proportion Test in ML Research Context
+
+In machine learning (ML) research, especially in healthcare, the **one-sample proportion test** is not directly testing the performance of the entire ML model or comparing different models. Instead, it focuses on comparing a single **performance metric** (e.g., accuracy, sensitivity, specificity, or AUC) against a known or expected **proportion value**. This test is particularly useful for determining whether the performance of an ML model is significantly different from a predefined threshold or benchmark.
+
+### What Does the One-Sample Proportion Test Actually Test?
+
+The one-sample proportion test is used to answer a specific question: 
+
+**Is the proportion (e.g., AUC, accuracy, sensitivity) of the new ML model significantly different from a predefined value?**
+
+#### In the context of the one-sample proportion test:
+
+- **Null Hypothesis ($H_0$)**: The observed proportion of the new ML model is equal to a pre-specified proportion (e.g., AUC = 0.90).
+  
+- **Alternative Hypothesis ($H_a$)**: The observed proportion is significantly different from the pre-specified proportion (e.g., AUC ≠ 0.90).
+
+### What Is the One-Sample Proportion Test Used For in ML Research?
+
+In the context of ML research in healthcare, where methodologies, datasets, and algorithms can vary significantly between studies, the **one-sample proportion test** can be used for:
+
+1. **Benchmarking Against Known Standards**:
+   - When you have a new dataset or methodology, you can use the one-sample proportion test to see if your model’s performance on this new dataset is significantly different from a **known standard** or a value reported in the literature.
+   - For example, if a previous study showed that the AUC of a model for diagnosing a specific disease was 0.90, you might want to test whether your new model’s AUC on a new dataset is significantly different from 0.90.
+
+2. **Assessing Model Performance Stability**:
+   - Even if the datasets and methodologies change, researchers often want to ensure that their new model maintains a certain level of performance.
+   - For instance, if you expect your model to achieve an accuracy of 85%, you can use a one-sample proportion test to check if the observed accuracy on the test set is significantly different from 0.85.
+
+3. **Sample Size Determination for Specific Performance Metrics**:
+   - The one-sample proportion test helps determine the **minimum sample size needed** to detect a meaningful difference in a proportion-based performance metric (e.g., sensitivity, specificity).
+   - This is particularly useful when setting up experiments to evaluate performance metrics in subgroups of the data or under specific conditions, where you want to ensure that your sample size is adequate for detecting a specific level of change.
+
+### Limitations and Considerations
+
+1. **Model-Specific vs. Metric-Specific**:
+   - The one-sample proportion test focuses on a **single proportion** (e.g., AUC or accuracy) and not on the overall comparison between models or different ML algorithms.
+   - It doesn’t account for the **variance** introduced by different algorithms, preprocessing steps, or hyperparameters.
+
+2. **Not Suitable for Model Comparisons**:
+   - If your goal is to compare two or more ML models directly, a one-sample proportion test is not appropriate. Instead, you might use statistical tests like the **McNemar’s test** (for comparing classification models) or **paired t-tests** (for continuous metrics).
+
+3. **Assumes Fixed Threshold or Benchmark**:
+   - The one-sample proportion test assumes that you have a well-defined threshold or benchmark value to compare against (e.g., AUC = 0.90). This can be difficult in rapidly evolving fields like ML, where benchmarks may not always be well established.
+
+### Example Use Case
+
+Suppose you are developing a new machine learning model to detect diabetic retinopathy based on retinal images. A previous study showed that a state-of-the-art model achieved an AUC of 0.92 on a different but comparable dataset. You have a new dataset and want to ensure that your model’s AUC is not significantly lower than this benchmark.
+
+In this case, you could use a one-sample proportion test to test whether your model’s AUC on the new dataset is significantly different from 0.92. This helps you:
+
+1. Set a sample size that’s large enough to detect a meaningful deviation (e.g., 0.05).
+2. Test whether your model’s performance is in line with previous studies, even if the underlying data, features, or ML techniques differ.
+
+### Conclusion
+
+The **one-sample proportion test** in ML research is best used for **evaluating a specific performance metric** (e.g., AUC, accuracy) against a known standard or threshold value. It is valuable for determining sample size requirements and for ensuring that the observed performance is consistent with expected performance levels, despite potential differences in methodologies, datasets, and algorithms. However, it is not suitable for direct model-to-model comparisons or for complex evaluations involving multiple metrics or distributions.
+
+## One-Sample Proportion Test (Example)
 
 ### Scenario:
+
 Suppose you are evaluating the performance of a new machine learning classifier that predicts whether patients have a particular disease. Previous research using similar classifiers has shown an AUC (Area Under the Curve) of 0.90. You want to see if your new classifier performs significantly better or worse than this standard. To do so, you will use a one-sample proportion test to compare your classifier's AUC against the hypothesized value of 0.90.
 
 ### Setting Up the One-Sample Proportion Test

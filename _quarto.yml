@@ -5,13 +5,16 @@ book:
   title: "Sample Size for Medical Research with R"
   subtitle: "A Quick Guide Cookbook"
   author: "Kittipos Sirivongrungson"
-  date: "12/17/2023"
+  date: today
   site-url: https://ss4medr.netlify.app
   repo-url: "https://github.com/Lightbridge-KS/ss4medr"
   chapters:
     - index.qmd
     - "contents/funda.qmd"
     - "contents/pwr.qmd"
+    - part: "Descriptive"
+      chapters: 
+        - "contents/desc-proportion.qmd"
     - part: "Group comparison"
       chapters: 
         - "contents/continuous.qmd"

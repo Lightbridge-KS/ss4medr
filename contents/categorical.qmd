@@ -16,20 +16,7 @@ theme_set(theme_minimal())
 ```
 
 
-```{r}
-res.p.1 <- pwr.p.test(
-  h = ES.h(p1 = 0.75, p2 = 0.50),
-  sig.level = 0.05,
-  power = 0.80,
-  alternative = "greater"
-)
 
-res.p.1
-```
-
-```{r}
-plot(res.p.1)
-```
 
 ## Chi-square test
 
